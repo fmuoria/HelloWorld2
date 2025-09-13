@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - PEFA Kabuku Church</title>
+  <meta name="description" content="Explore our church activities and community events through our photo gallery.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Navigation Bar -->
+  <nav class="bg-sky-500 text-white flex items-center justify-between px-6 py-4 relative">
+    <div class="flex items-center space-x-2">
+      <img src="assets/Logo.png" alt="Logo" class="w-8 h-8 rounded">
+      <span class="font-bold text-xl">PEFA Kabuku Church</span>
+    </div>
+    <ul class="flex space-x-6 font-semibold">
+      <li><a href="index.html" class="hover:text-sky-200">Home</a></li>
+      
+      <!-- About Dropdown -->
+      <li class="relative group">
+        <a href="#" class="hover:text-sky-200 flex items-center">
+          About
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </a>
+        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+          <a href="about.html" class="block px-4 py-2 text-gray-800 hover:bg-sky-50 hover:text-sky-600 rounded-t-md">Our Team</a>
+          <a href="history.html" class="block px-4 py-2 text-gray-800 hover:bg-sky-50 hover:text-sky-600 rounded-b-md">History of the Church</a>
+        </div>
+      </li>
+      
+      <li><a href="gallery.html" class="hover:text-sky-200 text-sky-200">Gallery</a></li>
+      <li>
+        <button id="giveBtn" class="px-4 py-1 rounded bg-white text-sky-500 hover:bg-sky-400 hover:text-white font-bold border border-white shadow-lg">
+          Give
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Give Modal -->
+  <div id="giveModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-gray-800">Support Our Ministry</h3>
+        <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="text-center">
+        <div class="mb-4">
+          <h4 class="font-semibold text-gray-800 mb-2">M-Pesa Paybill Details</h4>
+          <div class="bg-sky-50 p-4 rounded-lg">
+            <div class="mb-2">
+              <span class="font-medium">Paybill Number:</span>
+              <span class="font-bold text-sky-600">1234567</span>
+            </div>
+            <div>
+              <span class="font-medium">Account Number:</span>
+              <span class="font-bold text-sky-600">123445678</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 mb-4">Thank you for your generous contribution to God's work!</p>
+        <button id="copyDetails" class="bg-sky-500 text-white px-4 py-2 rounded hover:bg-sky-600 transition">
+          Copy Details
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-60 hidden">
+    <div class="relative max-w-4xl max-h-full p-4">
+      <button id="closeImageModal" class="absolute top-2 right-2 text-white hover:text-gray-300 z-10">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain">
+      <div id="modalCaption" class="text-white text-center mt-4 text-lg"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-sky-600 to-sky-400 text-white py-16 text-center">
+    <h1 class="text-4xl font-bold">Gallery</h1>
+    <p class="mt-4 text-xl">Celebrating God's work in our community</p>
+  </header>
+
+  <!-- Filter Buttons -->
+  <section class="p-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <button class="filter-btn active px-6 py-2 bg-sky-500 text-white rounded-full font-semibold hover:bg-sky-600 transition" data-filter="all">
+          All Photos
+        </button>
+        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="worship">
+          Worship Services
+        </button>
+        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="youth">
+          Youth Ministry
+        </button>
+        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="children">
+          Children's Ministry
+        </button>
+        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="community">
+          Community Events
+        </button>
+        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="conferences">
+          Conferences
+        </button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="galleryGrid">
+        
+        <!-- Worship Services Photos -->
+        <div class="gallery-item worship group cursor-pointer" data-category="worship">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/worship-1.jpg" alt="Sunday Worship Service" class="w-full h-full object-cover">
+              <!-- Placeholder for when no image -->
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Sunday Worship</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Community Outreach</p>
+        </div>
+
+        <div class="gallery-item community group cursor-pointer" data-category="community">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/community-2.jpg" alt="Food Drive" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Food Drive</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Food Drive</p>
+        </div>
+
+        <!-- Conference Photos -->
+        <div class="gallery-item conferences group cursor-pointer" data-category="conferences">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/conference-1.jpg" alt="Annual Conference" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Annual Conference</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Annual Conference</p>
+        </div>
+
+        <div class="gallery-item conferences group cursor-pointer" data-category="conferences">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/conference-2.jpg" alt="Leadership Conference" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Leadership Conference</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Leadership Conference</p>
+        </div>
+
+        <!-- Add more placeholder photos for demonstration -->
+        <div class="gallery-item worship group cursor-pointer" data-category="worship">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/worship-3.jpg" alt="Evening Service" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Evening Service</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Evening Service</p>
+        </div>
+
+        <div class="gallery-item youth group cursor-pointer" data-category="youth">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/youth-3.jpg" alt="Youth Sports Day" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Youth Sports Day</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Youth Sports Day</p>
+        </div>
+
+        <div class="gallery-item community group cursor-pointer" data-category="community">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/community-3.jpg" alt="Medical Camp" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Medical Camp</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Medical Camp</p>
+        </div>
+
+        <div class="gallery-item children group cursor-pointer" data-category="children">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/children-3.jpg" alt="Vacation Bible School" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Vacation Bible School</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Vacation Bible School</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Instructions -->
+  <section class="bg-sky-50 p-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-2xl font-semibold mb-4">Share Your Memories</h2>
+      <p class="text-gray-700 mb-6">
+        Have photos from our church events? We'd love to include them in our gallery! 
+        Contact us to share your photos and help us document God's work in our community.
+      </p>
+      <a href="mailto:info@pefakabuku.org?subject=Gallery Photos" class="inline-block px-6 py-3 bg-sky-500 text-white rounded font-semibold hover:bg-sky-600 transition">
+        Share Your Photos
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <footer class="bg-gray-900 text-white p-6 text-center mt-10">
+    <h2 class="text-xl font-semibold">Contact Us</h2>
+    <p>PEFA Kabuku Church</p>
+    <p>
+      Email:
+      <a href="mailto:info@pefakabuku.org" class="underline hover:text-sky-300">info@pefakabuku.org</a>
+      | Phone:
+      <a href="tel:+254000000000" class="underline hover:text-sky-300">+254-000-000-000</a>
+    </p>
+    <div class="mt-2 flex justify-center space-x-4">
+      <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-sky-400 flex items-center">
+        <svg class="w-5 h-5 mr-1 inline" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0H1.326C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.326 24H12.82v-9.294H9.692v-3.622h3.128V8.4c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.326V1.326C24 .593 23.407 0 22.675 0z"></path></svg>
+        Facebook
+      </a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-pink-400 flex items-center">
+        <svg class="w-5 h-5 mr-1 inline" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+        Instagram
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // Modal functionality for Give button
+    const giveBtn = document.getElementById('giveBtn');
+    const giveModal = document.getElementById('giveModal');
+    const closeModal = document.getElementById('closeModal');
+    const copyDetails = document.getElementById('copyDetails');
+    
+    giveBtn.addEventListener('click', () => {
+      giveModal.classList.remove('hidden');
+    });
+    
+    closeModal.addEventListener('click', () => {
+      giveModal.classList.add('hidden');
+    });
+    
+    giveModal.addEventListener('click', (e) => {
+      if (e.target === giveModal) {
+        giveModal.classList.add('hidden');
+      }
+    });
+    
+    copyDetails.addEventListener('click', () => {
+      const details = 'Paybill: 1234567\nAccount: 123445678';
+      navigator.clipboard.writeText(details).then(() => {
+        copyDetails.textContent = 'Copied!';
+        setTimeout(() => {
+          copyDetails.textContent = 'Copy Details';
+        }, 2000);
+      });
+    });
+
+    // Gallery filtering functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => {
+          b.classList.remove('active', 'bg-sky-500', 'text-white');
+          b.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        btn.classList.remove('bg-gray-200', 'text-gray-700');
+        btn.classList.add('active', 'bg-sky-500', 'text-white');
+        
+        // Filter gallery items
+        const filter = btn.getAttribute('data-filter');
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Image modal functionality
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeImageModal = document.getElementById('closeImageModal');
+    
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        const caption = item.querySelector('p').textContent;
+        
+        modalImage.src = img.src;
+        modalImage.alt = img.alt;
+        modalCaption.textContent = caption;
+        imageModal.classList.remove('hidden');
+      });
+    });
+    
+    closeImageModal.addEventListener('click', () => {
+      imageModal.classList.add('hidden');
+    });
+    
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        imageModal.classList.add('hidden');
+      }
+    });
+  </script>
+
+  <style>
+    .group:hover .group-hover\:opacity-100 {
+      opacity: 1;
+    }
+    
+    .group:hover .group-hover\:visible {
+      visibility: visible;
+    }
+  </style>
+</body>
+</html>0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Sunday Worship Service</p>
+        </div>
+
+        <div class="gallery-item worship group cursor-pointer" data-category="worship">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/worship-2.jpg" alt="Praise & Worship Team" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Praise & Worship</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Praise & Worship Team</p>
+        </div>
+
+        <!-- Youth Ministry Photos -->
+        <div class="gallery-item youth group cursor-pointer" data-category="youth">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/youth-1.jpg" alt="Youth Fellowship" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Youth Fellowship</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Youth Fellowship</p>
+        </div>
+
+        <div class="gallery-item youth group cursor-pointer" data-category="youth">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/youth-2.jpg" alt="Youth Camp" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Youth Camp</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Youth Camp</p>
+        </div>
+
+        <!-- Children's Ministry Photos -->
+        <div class="gallery-item children group cursor-pointer" data-category="children">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/children-1.jpg" alt="Sunday School" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Sunday School</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Sunday School</p>
+        </div>
+
+        <div class="gallery-item children group cursor-pointer" data-category="children">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/children-2.jpg" alt="Children's Day" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Children's Day</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-2 text-sm text-gray-600">Children's Day</p>
+        </div>
+
+        <!-- Community Events Photos -->
+        <div class="gallery-item community group cursor-pointer" data-category="community">
+          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <img src="assets/gallery/community-1.jpg" alt="Community Outreach" class="w-full h-full object-cover">
+              <div class="text-gray-500 text-center hidden">
+                <svg class="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="text-sm">Community Outreach</p>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-
