@@ -7,6 +7,7 @@
   <meta name="description" content="Explore our church activities and community events through our photo gallery.">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-white text-gray-800 font-sans">
 
@@ -89,42 +90,44 @@
   </div>
 
   <!-- Header -->
-  <header class="bg-gradient-to-r from-sky-600 to-sky-400 text-white py-16 text-center">
-    <h1 class="text-4xl font-bold">Gallery</h1>
-    <p class="mt-4 text-xl">Celebrating God's work in our community</p>
+  <header class="gradient-bg text-white py-16 md:py-24 text-center relative overflow-hidden">
+    <div class="relative z-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 text-shadow-strong fade-in">Gallery</h1>
+      <p class="mt-4 text-xl md:text-2xl text-shadow fade-in-1">Celebrating God's work in our community</p>
+    </div>
   </header>
 
   <!-- Filter Buttons -->
-  <section class="p-8">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-wrap justify-center gap-4 mb-8">
-        <button class="filter-btn active px-6 py-2 bg-sky-500 text-white rounded-full font-semibold hover:bg-sky-600 transition" data-filter="all">
+  <section class="p-8 md:p-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <button class="filter-btn active px-8 py-3 bg-gradient-to-r from-sky-500 to-sky-600 text-white rounded-full font-semibold hover:from-sky-600 hover:to-sky-700 shadow-lg hover-lift text-sm md:text-base" data-filter="all">
           All Photos
         </button>
-        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="worship">
+        <button class="filter-btn px-8 py-3 bg-white text-gray-700 rounded-full font-semibold hover:bg-gray-50 shadow-md hover-lift text-sm md:text-base" data-filter="worship">
           Worship Services
         </button>
-        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="youth">
+        <button class="filter-btn px-8 py-3 bg-white text-gray-700 rounded-full font-semibold hover:bg-gray-50 shadow-md hover-lift text-sm md:text-base" data-filter="youth">
           Youth Ministry
         </button>
-        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="children">
+        <button class="filter-btn px-8 py-3 bg-white text-gray-700 rounded-full font-semibold hover:bg-gray-50 shadow-md hover-lift text-sm md:text-base" data-filter="children">
           Children's Ministry
         </button>
-        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="community">
+        <button class="filter-btn px-8 py-3 bg-white text-gray-700 rounded-full font-semibold hover:bg-gray-50 shadow-md hover-lift text-sm md:text-base" data-filter="community">
           Community Events
         </button>
-        <button class="filter-btn px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300 transition" data-filter="conferences">
+        <button class="filter-btn px-8 py-3 bg-white text-gray-700 rounded-full font-semibold hover:bg-gray-50 shadow-md hover-lift text-sm md:text-base" data-filter="conferences">
           Conferences
         </button>
       </div>
 
       <!-- Gallery Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="galleryGrid">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="galleryGrid">
         
         <!-- Worship Services Photos -->
-        <div class="gallery-item worship group cursor-pointer" data-category="worship">
-          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+        <div class="gallery-item worship group cursor-pointer fade-in-1" data-category="worship">
+          <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift image-hover">
+            <div class="w-full h-72 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
               <img src="assets/gallery/worship-1.jpg" alt="Sunday Worship Service" class="w-full h-full object-cover">
               <!-- Placeholder for when no image -->
               <div class="text-gray-500 text-center hidden">
@@ -134,20 +137,21 @@
                 <p class="text-sm">Sunday Worship</p>
               </div>
             </div>
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
+              <div class="text-white text-center">
+                <svg class="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                 </svg>
+                <p class="font-semibold">Click to view</p>
               </div>
             </div>
           </div>
-          <p class="text-center mt-2 text-sm text-gray-600">Community Outreach</p>
+          <p class="text-center mt-3 font-medium text-gray-700">Community Outreach</p>
         </div>
 
-        <div class="gallery-item community group cursor-pointer" data-category="community">
-          <div class="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <div class="gallery-item community group cursor-pointer fade-in-2" data-category="community">
+          <div class="relative overflow-hidden rounded-xl shadow-lg hover-lift image-hover">
             <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
               <img src="assets/gallery/community-2.jpg" alt="Food Drive" class="w-full h-full object-cover">
               <div class="text-gray-500 text-center hidden">
@@ -314,21 +318,21 @@
   </section>
 
   <!-- Upload Instructions -->
-  <section class="bg-sky-50 p-8">
+  <section class="bg-gradient-to-br from-sky-50 to-blue-50 p-8 md:p-16">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl font-semibold mb-4">Share Your Memories</h2>
-      <p class="text-gray-700 mb-6">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6">Share Your Memories</h2>
+      <p class="text-gray-700 text-lg leading-relaxed mb-8 max-w-3xl mx-auto">
         Have photos from our church events? We'd love to include them in our gallery! 
         Contact us to share your photos and help us document God's work in our community.
       </p>
-      <a href="mailto:info@pefakabuku.org?subject=Gallery Photos" class="inline-block px-6 py-3 bg-sky-500 text-white rounded font-semibold hover:bg-sky-600 transition">
+      <a href="mailto:info@pefakabuku.org?subject=Gallery Photos" class="inline-block px-8 py-4 bg-sky-500 text-white rounded-full font-semibold hover:bg-sky-600 shadow-lg hover-lift text-lg no-underline">
         Share Your Photos
       </a>
     </div>
   </section>
 
   <!-- Contact -->
-  <footer class="bg-gray-900 text-white p-6 text-center mt-10">
+  <footer class="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 md:p-12 text-center">
     <h2 class="text-xl font-semibold">Contact Us</h2>
     <p>PEFA Kabuku Church</p>
     <p>
@@ -388,17 +392,21 @@
       btn.addEventListener('click', () => {
         // Update active button
         filterBtns.forEach(b => {
-          b.classList.remove('active', 'bg-sky-500', 'text-white');
-          b.classList.add('bg-gray-200', 'text-gray-700');
+          b.classList.remove('active', 'bg-gradient-to-r', 'from-sky-500', 'to-sky-600', 'text-white');
+          b.classList.add('bg-white', 'text-gray-700');
         });
-        btn.classList.remove('bg-gray-200', 'text-gray-700');
-        btn.classList.add('active', 'bg-sky-500', 'text-white');
+        btn.classList.remove('bg-white', 'text-gray-700');
+        btn.classList.add('active', 'bg-gradient-to-r', 'from-sky-500', 'to-sky-600', 'text-white');
         
-        // Filter gallery items
+        // Filter gallery items with animation
         const filter = btn.getAttribute('data-filter');
-        galleryItems.forEach(item => {
+        galleryItems.forEach((item, index) => {
           if (filter === 'all' || item.classList.contains(filter)) {
             item.style.display = 'block';
+            item.classList.remove('fade-in-1', 'fade-in-2', 'fade-in-3', 'fade-in-4', 'fade-in-5', 'fade-in-6');
+            setTimeout(() => {
+              item.classList.add(`fade-in-${(index % 6) + 1}`);
+            }, 10);
           } else {
             item.style.display = 'none';
           }
